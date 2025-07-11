@@ -1,0 +1,14 @@
+ENTITY projetoinicial IS
+    PORT (
+        d   : IN BIT_VECTOR(3 DOWNTO 0);
+        en  : IN BIT;
+        q   : BUFFER BIT_VECTOR(3 DOWNTO 0)
+    );
+END projetoinicial;
+
+ARCHITECTURE corpo OF projetoinicial IS
+BEGIN
+	WITH en SELECT
+    q <= d WHEN '1',
+			q WHEN '0';
+END corpo;
