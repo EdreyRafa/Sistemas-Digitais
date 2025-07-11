@@ -1,0 +1,20 @@
+ENTITY projetoinicial IS
+    PORT (
+        p  : IN BIT_VECTOR(3 DOWNTO 0);
+        s  : OUT BIT_VECTOR(1 DOWNTO 0);
+        int: BUFFER BIT
+    );
+END projetoinicial;
+
+ARCHITECTURE corpo OF projetoinicial IS
+BEGIN
+    int <= '1' WHEN p(0) = '1' OR p(1) = '1' OR p(2) = '1' OR p(3) = '1' ELSE
+           '0';
+
+    s <= "00" WHEN p(0) = '1' ELSE
+         "01" WHEN p(1) = '1' AND p(0) = '0' ELSE
+         "10" WHEN p(2) = '1' AND p(1) = '0' AND p(0) = '0' ELSE
+         "11" WHEN (p(3) = '1' AND p(2) = '0' AND p(1) = '0' AND p(0) = '0') OR 
+                 (p(3) = '0' AND p(2) = '0' AND p(1) = '0' AND p(0) = '0') ELSE
+         "11";
+END corpo;
