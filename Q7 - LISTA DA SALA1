@@ -1,0 +1,26 @@
+ENTITY projeto2 IS
+    PORT (
+        clock, reset, j, k  : IN  BIT;
+		  q					 : BUFFER BIT
+    );
+END projeto2;
+
+ARCHITECTURE corpo OF projeto2 IS
+BEGIN
+		PROCESS (clock)
+		BEGIN
+			IF reset = '1' THEN 
+					q <= '0';
+			ELSIF clock'EVENT   AND clock = '1' THEN				
+					IF j = '0'    AND k = '0'     THEN
+					q <= q;
+					ELSIF j = '0' AND k = '1'     THEN
+					q <= '0';
+					ELSIF j = '1' AND k = '0'     THEN
+					q <= '1';
+					ELSIF j = '1' AND k = '1'		THEN
+					q <= NOT q;
+				END IF;
+			END IF;
+		END PROCESS;
+END corpo;
