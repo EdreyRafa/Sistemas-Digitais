@@ -1,0 +1,76 @@
+ENTITY projeto2 IS
+    PORT (
+        clock, reset, X  : IN  BIT;
+		  Z                : OUT BIT;
+		  cnt			 		 : BUFFER BIT_VECTOR (2 DOWNTO 0)
+    );
+END projeto2;
+
+ARCHITECTURE corpo OF projeto2 IS
+BEGIN
+		PROCESS (clock)
+		BEGIN
+			IF reset = '1' THEN 
+					cnt <= "000";
+			ELSIF clock'EVENT   AND clock = '1' THEN
+				CASE cnt IS
+					WHEN "000" => 
+						IF X = '0' THEN
+							cnt <= "001";
+						ELSE 
+							cnt <= "111";
+						END IF;
+						
+					WHEN "001" =>
+						IF X = '0' THEN
+							cnt <= "010";
+						ELSE 
+							cnt <= "000";
+						END IF;
+						
+					WHEN "010" =>
+						IF X = '0' THEN
+							cnt <= "011";
+						ELSE 
+							cnt <= "001";
+						END IF;
+					
+					WHEN "011" =>
+						IF X = '0' THEN
+							cnt <= "100";
+						ELSE 
+							cnt <= "010";
+						END IF;
+					
+					WHEN "100" =>
+						IF X = '0' THEN
+							cnt <= "101";
+						ELSE 
+							cnt <= "011";
+						END IF;
+					
+					WHEN "101" =>
+						IF X = '0' THEN
+							cnt <= "110";
+						ELSE 
+							cnt <= "100";
+						END IF;
+					
+					WHEN "110" =>
+						IF X = '0' THEN
+							cnt <= "111";
+						ELSE 
+							cnt <= "101";
+						END IF;
+					
+					WHEN "111" =>
+						IF X = '0' THEN
+							cnt <= "000";
+						ELSE 
+							cnt <= "110";
+						END IF;
+				END CASE;
+			END IF;
+		END PROCESS;		
+		Z <= NOT cnt(2);
+END corpo;
